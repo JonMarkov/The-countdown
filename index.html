@@ -8,47 +8,47 @@
             margin: 0;
             padding: 0;
         }
-        #code{
-            width:120px;
+        #time{
+            width:200px;
             height:40px;
-            border:5px solid red;
-            border-radius: 5px;
-            margin:30px auto;
             text-align: center;
             line-height: 40px;
-            font-size: 24px;
-            cursor: pointer;
+            margin: 30px auto;
+            border: 2px solid lightcoral;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-<div id="code"></div>
+<div id="time"></div>
 <script>
-    var code = document.getElementById("code");
-    function getCode() {
-        // 准备一个62个字符串；
-        // 产生随机数；随机数可以作为字符的索引；
-        // 随机索引范围【0-61】
-        var str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        // 随机数；
-        var i =0;
-        var newStr  = "";
-        while(i<4){
-            var num = Math.round(Math.random()*(61-0)+0);
-            var curStr = str[num];
-            // 把拼接之后的字符全部转大写，然后把新拿到的字符转大写，然后进行验证；
-            var max = newStr.toUpperCase();
-            var maxNew = curStr.toUpperCase();
-            if(max.indexOf(maxNew)===-1){
-                newStr+=str[num];
-                i++;
-            }
-        }
-        code.innerHTML = newStr;
+    // 倒计时： 目标时间---> 计算当前的最新时间和目标的时间的时间差---> 计算当前时间差中含有多少个小时，多少个分钟，多少秒【每隔一秒需要计算一次】--> 把计算出来的小时、分钟 、秒放回页面中；
+    var  time = document.getElementById("time");
+    var targetTime = new Date("2018/10/28 15:54:00");
+    // targetTime - new Date() : 计算目标时间距离当前最新时间的毫秒差；
+    function addZero(num) {
+        return num<10?"0"+num:num;
     }
-    getCode();
-    // 把函数的空间地址赋值给code的onclick属性；
-    code.onclick = getCode;
+    function count() {
+        // 计算时间差
+        var  diffTime = targetTime - new Date();
+        if(diffTime<=0){
+            clearInterval(a);
+            // 1. 返回值 2.中止代码
+            return;
+        }
+        // 计算时间差中含有多少个小时 分钟 秒；
+        var  hours = Math.floor(diffTime/(1000*60*60));
+        var minutes = Math.floor((diffTime-hours*1000*60*60)/(1000*60));
+        var seconds = Math.floor((diffTime-hours*1000*60*60-minutes*1000*60)/1000);
+        time.innerHTML = addZero(hours)+":" + addZero(minutes) + ":"+ addZero(seconds);
+    }
+    count();
+    var  a = setInterval(count,1000);
+
+    //4000秒  3600  400秒    6   40
+    // 1     6   40；
+
 
 </script>
 </body>
