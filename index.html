@@ -6,47 +6,50 @@
 </head>
 <body>
 <script>
-    // 数组的冒泡排序
-    var ary = [12,67,88,98,56,35,45,26,1];
-    //var  ary = [12,32,56,67,88,99,101];
-    // 1. sort
-    /*ary.sort(function (a,b) {
-        return a-b;// 从小到大
-    });*/
-    // 实现从小到大
-    // 让相邻两项进行比较，如果前面一项比后面一项大，那么让这两项互换位置；如果前比后面一项小，那么不换位置；每循环一整轮，把数组的最大值放到数组的最后面；有多少项，就执行多少次这样的循环；
-    for(var j = 0;j<ary.length;j++){
-        // 当外面的循环循环一次；
-        var flag = true;// 标识的作用
-        for(var i=0;i<ary.length-1-j;i++){
-            // 里面整个循环完一次，实现将最大值放到最后；
-            if(ary[i]>ary[i+1]){//前面一项比后面大
-                // 借助第三方变量
-                //如果能进来，说明数组没有排好顺序；如果进不来，说明数组已经是排好的
-                /*var temp = ary[i];
-                ary[i] = ary[i+1];
-                ary[i+1] = temp;
-                flag = false;*/
-                // 两项交换位置的一种思想；
-                var  a = ary[i]+ary[i+1];
-                var  b = ary[i]-ary[i+1];
-                ary[i] = (a-b)/2;
-                ary[i+1] = (a+b)/2;
+    var ary = [12, 88, 67, 98, 56, 35, 45, 26, 1];
+
+    //5   6  7 8  10
+    //得到的新数组是排好序
+    //插入排序原理：去原有数组中去取每一项，然后和新数组中的成员进行比较，从新数组后面开始，一一向前比较，比新数组项小，继续和前一项比较，直到当前项比数组中一项值大时，把它放到这一项的后面；
+    var newAry = [];
+    newAry.push(ary[0]);
+    for (var i = 1; i < ary.length; i++) {
+        var cur = ary[i];
+        for (var j = newAry.length - 1; j >= 0; j--) {
+            if (cur < newAry[j]) {// 如果数组中拿到的这一项比新数组中j的这一项小；那么继续j--;和上一个成员进行比较；
+                if (j === 0) {
+                    newAry.unshift(cur);
+                    break;// 只会中止当前的小循环
+                }
+            } else {
+                // cur<newAry[j]的情况，把当前项放到新数组这一项的后面；
+                newAry.splice(j + 1, 0, cur);
+                break;
             }
-        }
-        if(flag){
-            break;
+
         }
     }
-    console.log(ary);
-    /*   var a = 10;
-       var b = 15;
-       var  c = a +b;
-       var  d = a-b;
-       a = (c-d)/2;
-       b = (c+d)/2;*/
+    // 从前向后
+    console.log(newAry);
 
 
+    var ary = [12, 88, 67, 98, 56, 35, 45, 26, 1];
+    var mAry = [12, 67, 88];
+    mAry.push(ary[0]);
+    for (var i = 1; i < ary.length; i++) {
+        var cur = ary[i];
+        for (var j = mAry.length - 1; j >= 0; j--) {
+            if (cur < mAry[j]) {
+                if (j === 0) {
+                    mAry.unshift(cur);
+                    break;
+                }
+            } else {
+                mAry.splice(j + 1, 0, cur);
+                break;
+            }
+        }
+    }
 </script>
 </body>
 </html>
