@@ -3,110 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style type="text/css">
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        #tab{
-            width:500px;
-            height:350px;
-            position: absolute;
-            left:50%;
-            top:50%;
-            margin-left: -250px;
-            margin-top:-175px;
-        }
-        #tab ul{
-            list-style: none;
-            overflow: hidden;
-        }
-        #tab ul li{
-            width:80px;
-            height:30px;
-            text-align: center;
-            line-height: 30px;
-            border: 1px solid lightcoral;
-            float:left;
-            margin-right:10px;
-            cursor:pointer;
-        }
-        #tab ul li.select{
-            background: lightcoral;
-        }
-        #tab div{
-            display: none;
-            width:500px;
-            height:320px;
-            text-align: center;
-            line-height: 320px;
-            font-size: 30px;
-            color:lightcoral;
-            border: 1px solid lightcoral;
-        }
-        #tab div.select{
-            display: block;
-        }
-    </style>
 </head>
 <body>
-<div id="tab">
-    <ul>
-        <li class="select">世界杯</li>
-        <li>综艺</li>
-        <li>电影</li>
-    </ul>
-    <div class="select">梅西</div>
-    <div>跑男</div>
-    <div>复联3</div>
-</div>
-<ul>
-    <li></li>
-</ul>
 <script>
-    // 1.获取所有的li,和tab这个div盒子下的div;
-    // 2. 给所有li绑定函数；【循环绑定】;
-    // 3. 绑定函数中
-    // 1) : 点击当前这个li时；清空所有li身上的class；
-    // 2) : 让点击的这个li新增class["select"];
-    // 3) : 所有div身上select清掉
-    // 4) : 只要让和点击这个li的索引相同的div新增"select";
-    // {}
-    // [{},{},{}]
-    /*oLis[0].a = 1;
-    console.log(oLis);
-    console.log(divs);*/
-    /* oLis[0].onclick = function () {
-         console.log(1);
-     }
-     oLis[1].onclick = function () {
-         console.log(2);
-     }
-     oLis[2].onclick = function () {
-         console.log(3);
-     }*/
-    var  tab = document.getElementById("tab");
-    var oLis = tab.getElementsByTagName("li");
-    var divs = tab.getElementsByTagName("div");
-
-    for(var i=0;i<oLis.length;i++){
-        // 新增一个属性；自定义属性
-        // 给每一个li新增一个属性叫index，属性值当前li的索引；
-        oLis[i].index = i;
-        oLis[i].onclick = function () {
-            for(var j=0;j<oLis.length;j++){
-                // 通过JS删除所有li的class；
-                oLis[j].className = "";// 清空所有li的select；
-                divs[j].className = "";// 清空所有div的select；
+    // 数组的冒泡排序
+    var ary = [12,67,88,98,56,35,45,26,1];
+    //var  ary = [12,32,56,67,88,99,101];
+    // 1. sort
+    /*ary.sort(function (a,b) {
+        return a-b;// 从小到大
+    });*/
+    // 实现从小到大
+    // 让相邻两项进行比较，如果前面一项比后面一项大，那么让这两项互换位置；如果前比后面一项小，那么不换位置；每循环一整轮，把数组的最大值放到数组的最后面；有多少项，就执行多少次这样的循环；
+    for(var j = 0;j<ary.length;j++){
+        // 当外面的循环循环一次；
+        var flag = true;// 标识的作用
+        for(var i=0;i<ary.length-1-j;i++){
+            // 里面整个循环完一次，实现将最大值放到最后；
+            if(ary[i]>ary[i+1]){//前面一项比后面大
+                // 借助第三方变量
+                //如果能进来，说明数组没有排好顺序；如果进不来，说明数组已经是排好的
+                /*var temp = ary[i];
+                ary[i] = ary[i+1];
+                ary[i+1] = temp;
+                flag = false;*/
+                // 两项交换位置的一种思想；
+                var  a = ary[i]+ary[i+1];
+                var  b = ary[i]-ary[i+1];
+                ary[i] = (a-b)/2;
+                ary[i+1] = (a+b)/2;
             }
-            // 给点击的li和对应div新增class；
-            // 点击时，循环早已经完成，已经变成最后一个值；3
-            // 函数中的this，指向当前被绑定的元素；this关键字；
-            this.className = "select";
-            divs[this.index].className = "select";
+        }
+        if(flag){
+            break;
         }
     }
-
+    console.log(ary);
+    /*   var a = 10;
+       var b = 15;
+       var  c = a +b;
+       var  d = a-b;
+       a = (c-d)/2;
+       b = (c+d)/2;*/
 
 
 </script>
